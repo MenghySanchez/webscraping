@@ -10,7 +10,8 @@ from concurrent.futures import ThreadPoolExecutor
 
 # Cargar clave API desde el entorno
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+#openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = ""
 
 # 1. Extraer el Árbol del Sitio Web
 def extract_site_tree(base_url, max_depth=2):
@@ -161,7 +162,31 @@ def display_html_tables(page_info):
 
     return meta_df, html_df
 
-# 7. Enviar Datos a GPT
+# 7 Analizar Imágenes
+def analyze_images(url):
+    """
+    Analiza las imágenes en la página para verificar tamaños y dimensiones.
+    """
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "html.parser")
+        images = []
+
+        for img in soup.find_all("img", src=True):
+            img_url = urljoin(url, img["src"])
+            try:
+                img_response = requests.head(img_url, timeout=10)
+                img_size = int(img_response.headers.get("Content-Length", 0)) / 1024  # Convertir a KB
+                images.append({"url": img_url, "size_kb": round(img_size, 2)})
+            except Exception as e:
+                images.append({"url": img_url, "error": str(e)})
+
+        return images
+    except Exception as e:
+        return {"url": url, "error": str(e)}
+
+# 8. Enviar Datos a GPT
 def send_to_gpt(site_tree, page_info, image_analysis):
     """
     Envía los datos recolectados a GPT para obtener recomendaciones.
@@ -187,9 +212,9 @@ def send_to_gpt(site_tree, page_info, image_analysis):
     except Exception as e:
         return f"Error al enviar datos a GPT: {e}"
 
-# 8. Función Principal
+# 9. Función Principal
 def main():
-    url = "https://tbo.com.ec"
+    url = "https://dibeal.com/"
     print("Extrayendo el árbol del sitio...")
     site_tree = extract_site_tree(url)
 
