@@ -10,8 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 # Cargar clave API desde el entorno
 load_dotenv()
-#openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = ""
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # 1. Extraer el Árbol del Sitio Web
 def extract_site_tree(base_url, max_depth=2):
