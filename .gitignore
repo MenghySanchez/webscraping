@@ -1,0 +1,62 @@
+# Archivos de configuración de entorno
+.env
+.env.local
+.env.*
+
+# Directorios de dependencias
+node_modules/
+vendor/
+
+# Caché del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de compilación o temporales
+dist/
+build/
+tmp/
+*.log
+*.cache
+
+# Configuraciones específicas del editor
+.vscode/
+.idea/
+*.swp
+
+# Archivos de Git relacionados con merges y rebase
+*.rej
+*.orig
+
+# Configuración de sistema o IDE
+*.iml
+*.out
+*.class
+
+# Exclusiones específicas de frameworks
+# Para Laravel
+/storage/*.key
+/public/storage
+/public/hot
+/homestead.yaml
+/homestead.json
+
+# Para React o Next.js
+.next/
+out/
+
+# Para Python
+*.pyc
+__pycache__/
+
+# Para Java
+target/
+*.war
+*.jar
+
+# Archivos comprimidos o empaquetados
+*.zip
+*.tar.gz
+*.rar
+
+# Archivos de imagenes
+*.png
