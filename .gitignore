@@ -22,6 +22,8 @@ tmp/
 .vscode/
 .idea/
 *.swp
+.DS_Store
+.gitignore
 
 # Archivos de Git relacionados con merges y rebase
 *.rej
@@ -59,4 +61,4 @@ target/
 *.rar
 
 # Archivos de imagenes
-*.png.env
+*.png
