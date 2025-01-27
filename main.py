@@ -213,7 +213,7 @@ def send_to_gpt(site_tree, page_info, image_analysis):
 
 # 9. Función Principal
 def main():
-    url = "https://dibeal.com/"
+    url = "https://gmsseguridad.com"
     print("Extrayendo el árbol del sitio...")
     site_tree = extract_site_tree(url)
 
