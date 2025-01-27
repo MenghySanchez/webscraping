@@ -7,10 +7,16 @@ import json
 import pandas as pd
 from dotenv import load_dotenv
 from concurrent.futures import ThreadPoolExecutor
+import cloudscraper
 
 # Cargar clave API desde el entorno
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Configurar User-Agent global
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+}
 
 # 1. Extraer el Árbol del Sitio Web
 def extract_site_tree(base_url, max_depth=2):
@@ -28,16 +34,24 @@ def extract_site_tree(base_url, max_depth=2):
         visited.add(url)
 
         try:
-            response = requests.get(url, timeout=10)
+            scraper = cloudscraper.create_scraper()
+            response = scraper.get(url, headers=HEADERS, timeout=10)
             response.raise_for_status()
-            soup = BeautifulSoup(response.text, "html.parser")
-            links = [
-                urljoin(base_url, a["href"])
-                for a in soup.find_all("a", href=True)
-                if urlparse(urljoin(base_url, a["href"])).netloc == urlparse(base_url).netloc
-            ]
-            site_tree[url] = list(set(links))
-            queue.extend((link, depth + 1) for link in links)
+
+            # Verificar si el contenido es HTML antes de procesar
+            if "text/html" in response.headers.get("Content-Type", ""):
+                # Decodificar el contenido de forma segura
+                content = response.content.decode(response.apparent_encoding or "utf-8", errors="replace")
+                soup = BeautifulSoup(content, "html.parser")
+                links = [
+                    urljoin(base_url, a["href"])
+                    for a in soup.find_all("a", href=True)
+                    if urlparse(urljoin(base_url, a["href"])).netloc == urlparse(base_url).netloc
+                ]
+                site_tree[url] = list(set(links))
+                queue.extend((link, depth + 1) for link in links)
+            else:
+                site_tree[url] = {"error": "El contenido no es HTML"}
         except Exception as e:
             site_tree[url] = {"error": str(e)}
 
@@ -90,7 +104,8 @@ def extract_page_info(url):
     Extrae etiquetas HTML relevantes y meta información.
     """
     try:
-        response = requests.get(url, timeout=10)
+        scraper = cloudscraper.create_scraper()
+        response = scraper.get(url, headers=HEADERS, timeout=10)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
 
@@ -126,7 +141,7 @@ def verify_urls_with_table(site_tree):
     """
     def check_url(url):
         try:
-            response = requests.head(url, timeout=10)
+            response = requests.head(url, headers=HEADERS, timeout=10)
             return {"URL": url, "Estado": response.status_code}
         except Exception as e:
             return {"URL": url, "Estado": f"Error: {str(e)}"}
@@ -167,7 +182,8 @@ def analyze_images(url):
     Analiza las imágenes en la página para verificar tamaños y dimensiones.
     """
     try:
-        response = requests.get(url, timeout=10)
+        scraper = cloudscraper.create_scraper()
+        response = scraper.get(url, headers=HEADERS, timeout=10)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
         images = []
@@ -175,7 +191,7 @@ def analyze_images(url):
         for img in soup.find_all("img", src=True):
             img_url = urljoin(url, img["src"])
             try:
-                img_response = requests.head(img_url, timeout=10)
+                img_response = requests.head(img_url, headers=HEADERS, timeout=10)
                 img_size = int(img_response.headers.get("Content-Length", 0)) / 1024  # Convertir a KB
                 images.append({"url": img_url, "size_kb": round(img_size, 2)})
             except Exception as e:
@@ -198,8 +214,6 @@ def send_to_gpt(site_tree, page_info, image_analysis):
     Árbol del sitio: {summarize_data(site_tree)}
     Información de las páginas: {summarize_data(page_info)}
     Análisis de imágenes: {summarize_data(image_analysis)}
-    Además, analiza las etiquetas HTML y proporciona sugerencias para optimizar su contenido:
-    {summarize_data(page_info)}
     """
     try:
         response = openai.ChatCompletion.create(
@@ -213,7 +227,7 @@ def send_to_gpt(site_tree, page_info, image_analysis):
 
 # 9. Función Principal
 def main():
-    url = "https://gmsseguridad.com"
+    url = "https://plan.org.ec/"
     print("Extrayendo el árbol del sitio...")
     site_tree = extract_site_tree(url)
 
