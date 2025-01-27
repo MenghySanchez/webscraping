@@ -1,273 +1,231 @@
-import cloudscraper
-import certifi
-import ssl
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
-import networkx as nx
-import matplotlib.pyplot as plt
 import openai
+import os
+import json
+import pandas as pd
+from dotenv import load_dotenv
+from concurrent.futures import ThreadPoolExecutor
 
+# Cargar clave API desde el entorno
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Configurar tu clave API de OpenAI
-openai.api_key = ""  # Reemplaza con tu clave de OpenAI
-
-# Función para hacer scraping con cloudscraper
-def scrape_with_cloudscraper(url):
-    try:
-        ssl_context = ssl.create_default_context(cafile=certifi.where())
-        scraper = cloudscraper.create_scraper(ssl_context=ssl_context)
-        response = scraper.get(url)
-        response.raise_for_status()
-
-        soup = BeautifulSoup(response.text, "html.parser")
-        titles = [h1.get_text(strip=True) for h1 in soup.find_all("h1")]
-        paragraphs = [p.get_text(strip=True) for p in soup.find_all("p")]
-
-        return {"titles": titles, "paragraphs": paragraphs, "url": url, "html": soup}
-    except Exception as e:
-        return {"error": str(e)}
-
-# Función para extraer el árbol del sitio
+# 1. Extraer el Árbol del Sitio Web
 def extract_site_tree(base_url, max_depth=2):
+    """
+    Recorre el sitio web para construir el árbol de páginas.
+    """
+    queue = [(base_url, 0)]
     visited = set()
     site_tree = {}
 
-    def crawl(url, depth):
+    while queue:
+        url, depth = queue.pop(0)
         if depth > max_depth or url in visited:
-            return
+            continue
         visited.add(url)
-        print(f"Crawling: {url} (depth {depth})")
-
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Referer": base_url,
-        }
 
         try:
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, timeout=10)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, "html.parser")
             links = [
                 urljoin(base_url, a["href"])
                 for a in soup.find_all("a", href=True)
-                if urlparse(urljoin(base_url, a["href"])).netloc
-                == urlparse(base_url).netloc
+                if urlparse(urljoin(base_url, a["href"])).netloc == urlparse(base_url).netloc
             ]
-            site_tree[url] = list(set(links))  # Eliminar duplicados
-            for link in links:
-                crawl(link, depth + 1)
+            site_tree[url] = list(set(links))
+            queue.extend((link, depth + 1) for link in links)
         except Exception as e:
             site_tree[url] = {"error": str(e)}
 
-    crawl(base_url, 0)
     return site_tree
 
-# Clasificar las páginas según su tipo
-def classify_page(url, base_url):
-    if url == base_url:
-        return "principal"
-    elif any(category in url.lower() for category in ["productos", "categorias", "servicios"]):
-        return "categoría"
-    elif any(landing in url.lower() for landing in ["contacto", "privacidad", "politicas", "terminos"]):
-        return "aterrizaje"
-    else:
-        return "otro"
+# 2. Mostrar el Árbol del Sitio en Formato Jerárquico
+def print_site_tree(site_tree, base_url, depth=0, visited=None):
+    """
+    Muestra el árbol del sitio en formato jerárquico con indentación.
+    Evita recursión infinita controlando los nodos visitados.
+    """
+    if visited is None:
+        visited = set()
 
+    if base_url in visited:
+        return
+    visited.add(base_url)
 
-# Dibujar el árbol del sitio
-def plot_site_tree(site_tree, base_url):
-    graph = nx.DiGraph()
-    node_colors = {}
+    indent = "  " * depth
+    print(f"{indent}└── {base_url}")
 
-    for parent, children in site_tree.items():
+    children = site_tree.get(base_url, [])
+    if isinstance(children, list):
+        for child in children:
+            print_site_tree(site_tree, child, depth + 1, visited)
+
+# 3. Exportar el Árbol del Sitio como JSON
+def export_site_tree_as_json(site_tree, base_url):
+    """
+    Exporta el árbol del sitio como un JSON jerárquico.
+    Evita recursión infinita controlando los nodos visitados.
+    """
+    visited = set()
+
+    def build_tree(url):
+        if url in visited:
+            return {}
+        visited.add(url)
+
+        children = site_tree.get(url, [])
         if isinstance(children, list):
-            for child in children:
-                graph.add_edge(parent, child)
-                page_type = classify_page(child, base_url)
-                node_colors[child] = (
-                    "gold" if page_type == "principal"
-                    else "skyblue" if page_type == "categoría"
-                    else "lightgreen" if page_type == "aterrizaje"
-                    else "gray"
-                )
-        if parent not in node_colors:
-            node_colors[parent] = "gold" if parent == base_url else "gray"
+            return {"children": {child: build_tree(child) for child in children}}
+        return {}
 
-    color_list = [node_colors[node] for node in graph.nodes]
-    plt.figure(figsize=(15, 10))
-    pos = nx.spring_layout(graph, k=0.5, seed=42)
-    nx.draw(
-        graph, pos, with_labels=True, node_size=1000, node_color=color_list,
-        font_size=8, font_weight="bold", edge_color="gray"
-    )
-    plt.title("Árbol del Sitio Web", fontsize=14)
-    plt.show()
+    return {base_url: build_tree(base_url)}
 
+# 4. Extraer Información HTML
+def extract_page_info(url):
+    """
+    Extrae etiquetas HTML relevantes y meta información.
+    """
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "html.parser")
 
-# Analizar contenido SEO
-def analyze_content(data):
-    if "error" in data:
-        return {"error": f"No se pudo analizar la página: {data['error']}"}
+        # Extraer etiquetas
+        h1_tags = [h1.get_text(strip=True) for h1 in soup.find_all("h1")]
+        h2_tags = [h2.get_text(strip=True) for h2 in soup.find_all("h2")]
+        h3_tags = [h3.get_text(strip=True) for h3 in soup.find_all("h3")]
+        span_tags = [span.get_text(strip=True) for span in soup.find_all("span")]
+        p_tags = [p.get_text(strip=True) for p in soup.find_all("p")]
+        label_tags = [label.get_text(strip=True) for label in soup.find_all("label")]
+        meta_tags = {
+            meta.get("name", meta.get("property", "unknown")): meta.get("content", "unknown")
+            for meta in soup.find_all("meta")
+        }
 
-    recommendations = []
-    for title in data["titles"]:
-        if len(title) > 60:
-            recommendations.append(f"El título '{title}' es demasiado largo.")
-        if len(title) < 30:
-            recommendations.append(f"El título '{title}' es demasiado corto.")
+        return {
+            "url": url,
+            "h1": h1_tags,
+            "h2": h2_tags,
+            "h3": h3_tags,
+            "span": span_tags,
+            "p": p_tags,
+            "label": label_tags,
+            "meta": meta_tags,
+        }
+    except Exception as e:
+        return {"url": url, "error": str(e)}
 
-    for paragraph in data["paragraphs"]:
-        word_count = len(paragraph.split())
-        if word_count > 150:
-            recommendations.append(f"Párrafo demasiado largo: '{paragraph[:100]}...'")
-        if word_count < 50:
-            recommendations.append(f"Párrafo demasiado corto: '{paragraph}'")
-
-    return recommendations
-
-
-# Analizar imágenes
-def analyze_images(images, base_url):
-    total_size = 0
-    image_details = []
-    for img in images:
-        img_url = urljoin(base_url, img.get("src", ""))
+# 5. Verificar URLs con solicitudes paralelas
+def verify_urls_with_table(site_tree):
+    """
+    Verifica si las URLs del árbol están funcionando correctamente y genera una tabla.
+    """
+    def check_url(url):
         try:
-            response = requests.get(img_url, stream=True)
-            response.raise_for_status()
-            img_size = int(response.headers.get("Content-Length", 0))
-            total_size += img_size
-            image_details.append({
-                "url": img_url,
-                "size_kb": round(img_size / 1024, 2),
-                "width": img.get("width", "desconocido"),
-                "height": img.get("height", "desconocido"),
-            })
-        except Exception:
-            image_details.append({"url": img_url, "error": "No se pudo analizar"})
+            response = requests.head(url, timeout=10)
+            return {"URL": url, "Estado": response.status_code}
+        except Exception as e:
+            return {"URL": url, "Estado": f"Error: {str(e)}"}
 
-    return {"total_size_kb": round(total_size / 1024, 2), "image_details": image_details}
+    with ThreadPoolExecutor() as executor:
+        results = list(executor.map(check_url, site_tree.keys()))
 
-def summarize_data(scraped_data, image_analysis, site_tree):
-    """
-    Resume los datos para ajustarse al límite de tokens del modelo.
-    """
-    summarized_titles = scraped_data["titles"][:5]  # Máximo 5 títulos
-    summarized_paragraphs = [
-        paragraph[:100] + "..." for paragraph in scraped_data["paragraphs"][:10]
-    ]  # Máximo 5 párrafos, recortados
-    summarized_images = image_analysis["image_details"][:5]  # Máximo 5 imágenes
-    summarized_tree = {key: links[:5] for key, links in site_tree.items() if isinstance(links, list)}  # 5 enlaces por página
+    return pd.DataFrame(results)
 
-    return {
-        "titles": summarized_titles,
-        "paragraphs": summarized_paragraphs,
-        "images": summarized_images,
-        "tree": summarized_tree,
-    }
+# 6. Mostrar etiquetas en tablas
+def display_html_tables(page_info):
+    """
+    Genera tablas separadas para etiquetas meta y otras etiquetas HTML.
+    """
+    # Crear DataFrame para etiquetas meta
+    meta_data = []
+    for page, info in page_info.items():
+        if "meta" in info:
+            for key, value in info["meta"].items():
+                meta_data.append({"Página": page, "Etiqueta": key, "Contenido": value})
 
-def send_to_gpt(scraped_data, image_analysis, site_tree):
+    meta_df = pd.DataFrame(meta_data)
+
+    # Crear DataFrame para otras etiquetas
+    html_data = []
+    for page, info in page_info.items():
+        for tag in ["h1", "h2", "h3", "span", "p", "label"]:
+            for content in info.get(tag, []):
+                html_data.append({"Página": page, "Etiqueta": tag, "Contenido": content})
+
+    html_df = pd.DataFrame(html_data)
+
+    return meta_df, html_df
+
+# 7. Enviar Datos a GPT
+def send_to_gpt(site_tree, page_info, image_analysis):
     """
-    Envía los datos a la API de GPT para obtener recomendaciones de mejora.
+    Envía los datos recolectados a GPT para obtener recomendaciones.
     """
+    def summarize_data(data, limit=1000):
+        return str(data)[:limit] + "..." if len(str(data)) > limit else str(data)
+
     prompt = f"""
-    Eres un experto en optimización de sitios web y SEO. Analiza los siguientes datos extraídos de un sitio web:
-
-    1. Contenido:
-       Títulos: {scraped_data['titles']}
-       Párrafos: {scraped_data['paragraphs']}
-
-    2. Análisis de imágenes:
-       Peso total: {image_analysis['total_size_kb']} KB
-       Detalles: {image_analysis['image_details']}
-
-    3. Árbol del sitio (relaciones entre páginas):
-       {site_tree}
-
-    Tareas:
-    - Identifica el tipo de cada página (página principal, categoría, aterrizaje u otro).
-    - Proporciona recomendaciones para mejorar el SEO y el contenido del sitio.
-    - Sugiere mejoras para la estructura del árbol del sitio.
-    - Indica cómo podría mejorar la presentación gráfica del árbol del sitio.
+    Analiza la estructura del sitio web y proporciona recomendaciones de SEO:
+    Árbol del sitio: {summarize_data(site_tree)}
+    Información de las páginas: {summarize_data(page_info)}
+    Análisis de imágenes: {summarize_data(image_analysis)}
+    Además, analiza las etiquetas HTML y proporciona sugerencias para optimizar su contenido:
+    {summarize_data(page_info)}
     """
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo" ,  # Usa "gpt-3.5-turbo" si no tienes acceso a GPT-4
-            messages=[{"role": "system", "content": "Eres un experto en SEO y optimización de sitios web."},
-                      {"role": "user", "content": prompt}],
-            max_tokens=19000,
-            temperature=0.7,
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=1000,
         )
-        return response['choices'][0]['message']['content']
+        return response["choices"][0]["message"]["content"]
     except Exception as e:
         return f"Error al enviar datos a GPT: {e}"
-    
-def plot_site_tree(site_tree, base_url, gpt_suggestions=None):
-    """
-    Genera un gráfico visual del árbol del sitio.
-    """
-    graph = nx.DiGraph()
-    for parent, children in site_tree.items():
-        if isinstance(children, list):
-            for child in children:
-                graph.add_edge(parent, child)
 
-    plt.figure(figsize=(15, 10))
-    pos = nx.spring_layout(graph, k=0.5, seed=42)
-    nx.draw(
-        graph, pos, with_labels=True, node_size=1000, node_color="skyblue",
-        font_size=8, font_weight="bold", edge_color="gray"
-    )
-    plt.title("Árbol del Sitio Web", fontsize=14)
-    if gpt_suggestions:
-        plt.figtext(0.5, 0.01, f"GPT Suggestions: {gpt_suggestions}", wrap=True, horizontalalignment='center', fontsize=10)
-
-    # Guardar la gráfica en lugar de mostrarla
-    plt.savefig("site_tree.png")
-    print("El gráfico del árbol del sitio se ha guardado como 'site_tree.png'.")
-    plt.close()
-
-# Función principal
+# 8. Función Principal
 def main():
-    url = "https://plan.org.ec"
-    print("Scraping de la página principal...")
-    scraped_data = scrape_with_cloudscraper(url)
-    if "error" in scraped_data:
-        print(scraped_data["error"])
-        return
+    url = "https://tbo.com.ec"
+    print("Extrayendo el árbol del sitio...")
+    site_tree = extract_site_tree(url)
 
-    print("\nAnálisis de imágenes:")
-    soup = scraped_data["html"]
-    image_analysis = analyze_images(soup.find_all("img"), url)
-    for img in image_analysis["image_details"]:
-        print(f"- URL: {img['url']}, Tamaño: {img.get('size_kb', 'desconocido')} KB, Dimensiones: {img.get('width', 'desconocido')}x{img.get('height', 'desconocido')}")
+    print("\nÁrbol del sitio estructurado:")
+    print_site_tree(site_tree, url)
 
-    print("\nExtrayendo el árbol del sitio...")
-    site_tree = extract_site_tree(url, max_depth=2)
+    print("\nExportando el árbol del sitio como JSON...")
+    tree_json = export_site_tree_as_json(site_tree, url)
 
-    print("\nÁrbol del sitio (texto):")
-    for page, links in site_tree.items():
-        if isinstance(links, list):
-            print(f"{page}:\n  {', '.join(links[:5])}...\n")  # Muestra los primeros 5 enlaces
-        else:
-            print(f"{page}: {links}\n")  # Maneja el caso en el que links es un diccionario (error)
+    with open("site_tree.json", "w") as json_file:
+        json.dump(tree_json, json_file, indent=4)
 
+    print("Árbol del sitio guardado como 'site_tree.json'")
 
-    print("\nEnviando datos a GPT para análisis...")
-    gpt_recommendations = send_to_gpt(scraped_data, image_analysis, site_tree)
-    print("\nRecomendaciones de GPT:")
+    print("\nExtrayendo información de las páginas...")
+    page_info = {page: extract_page_info(page) for page in site_tree}
+
+    print("\nVerificando URLs y generando tabla...")
+    url_status_table = verify_urls_with_table(site_tree)
+    print("\nEstado de URLs del Árbol del Sitio:")
+    print(url_status_table)
+
+    print("\nGenerando tablas para etiquetas meta y HTML...")
+    meta_df, html_df = display_html_tables(page_info)
+    print("\nEtiquetas Meta:")
+    print(meta_df)
+    print("\nEtiquetas HTML:")
+    print(html_df)
+
+    print("\nAnalizando imágenes...")
+    image_analysis = {page: analyze_images(page) for page in site_tree}
+
+    print("\nGenerando recomendaciones con GPT...")
+    gpt_recommendations = send_to_gpt(site_tree, page_info, image_analysis)
+    print("\nRecomendaciones:")
     print(gpt_recommendations)
-
-    recommendations = analyze_content(scraped_data)
-    print("\nRecomendaciones SEO:")
-    for rec in recommendations:
-        print(f"- {rec}")
-
-    print("\nMostrando el gráfico del árbol del sitio...")
-    plot_site_tree(site_tree, url, gpt_recommendations)
-
 
 if __name__ == "__main__":
     main()
