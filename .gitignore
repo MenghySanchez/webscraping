@@ -59,4 +59,4 @@ target/
 *.rar
 
 # Archivos de imagenes
-*.png
+*.png.env
