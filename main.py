@@ -6,7 +6,11 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 import networkx as nx
 import matplotlib.pyplot as plt
+import openai
 
+
+# Configurar tu clave API de OpenAI
+openai.api_key = ""  # Reemplaza con tu clave de OpenAI
 
 # Función para hacer scraping con cloudscraper
 def scrape_with_cloudscraper(url):
@@ -24,7 +28,6 @@ def scrape_with_cloudscraper(url):
     except Exception as e:
         return {"error": str(e)}
 
-
 # Función para extraer el árbol del sitio
 def extract_site_tree(base_url, max_depth=2):
     visited = set()
@@ -34,8 +37,16 @@ def extract_site_tree(base_url, max_depth=2):
         if depth > max_depth or url in visited:
             return
         visited.add(url)
+        print(f"Crawling: {url} (depth {depth})")
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Referer": base_url,
+        }
+
         try:
-            response = requests.get(url)
+            response = requests.get(url, headers=headers)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, "html.parser")
             links = [
@@ -52,7 +63,6 @@ def extract_site_tree(base_url, max_depth=2):
 
     crawl(base_url, 0)
     return site_tree
-
 
 # Clasificar las páginas según su tipo
 def classify_page(url, base_url):
@@ -140,21 +150,93 @@ def analyze_images(images, base_url):
 
     return {"total_size_kb": round(total_size / 1024, 2), "image_details": image_details}
 
+def summarize_data(scraped_data, image_analysis, site_tree):
+    """
+    Resume los datos para ajustarse al límite de tokens del modelo.
+    """
+    summarized_titles = scraped_data["titles"][:5]  # Máximo 5 títulos
+    summarized_paragraphs = [
+        paragraph[:100] + "..." for paragraph in scraped_data["paragraphs"][:10]
+    ]  # Máximo 5 párrafos, recortados
+    summarized_images = image_analysis["image_details"][:5]  # Máximo 5 imágenes
+    summarized_tree = {key: links[:5] for key, links in site_tree.items() if isinstance(links, list)}  # 5 enlaces por página
+
+    return {
+        "titles": summarized_titles,
+        "paragraphs": summarized_paragraphs,
+        "images": summarized_images,
+        "tree": summarized_tree,
+    }
+
+def send_to_gpt(scraped_data, image_analysis, site_tree):
+    """
+    Envía los datos a la API de GPT para obtener recomendaciones de mejora.
+    """
+    prompt = f"""
+    Eres un experto en optimización de sitios web y SEO. Analiza los siguientes datos extraídos de un sitio web:
+
+    1. Contenido:
+       Títulos: {scraped_data['titles']}
+       Párrafos: {scraped_data['paragraphs']}
+
+    2. Análisis de imágenes:
+       Peso total: {image_analysis['total_size_kb']} KB
+       Detalles: {image_analysis['image_details']}
+
+    3. Árbol del sitio (relaciones entre páginas):
+       {site_tree}
+
+    Tareas:
+    - Identifica el tipo de cada página (página principal, categoría, aterrizaje u otro).
+    - Proporciona recomendaciones para mejorar el SEO y el contenido del sitio.
+    - Sugiere mejoras para la estructura del árbol del sitio.
+    - Indica cómo podría mejorar la presentación gráfica del árbol del sitio.
+    """
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo" ,  # Usa "gpt-3.5-turbo" si no tienes acceso a GPT-4
+            messages=[{"role": "system", "content": "Eres un experto en SEO y optimización de sitios web."},
+                      {"role": "user", "content": prompt}],
+            max_tokens=19000,
+            temperature=0.7,
+        )
+        return response['choices'][0]['message']['content']
+    except Exception as e:
+        return f"Error al enviar datos a GPT: {e}"
+    
+def plot_site_tree(site_tree, base_url, gpt_suggestions=None):
+    """
+    Genera un gráfico visual del árbol del sitio.
+    """
+    graph = nx.DiGraph()
+    for parent, children in site_tree.items():
+        if isinstance(children, list):
+            for child in children:
+                graph.add_edge(parent, child)
+
+    plt.figure(figsize=(15, 10))
+    pos = nx.spring_layout(graph, k=0.5, seed=42)
+    nx.draw(
+        graph, pos, with_labels=True, node_size=1000, node_color="skyblue",
+        font_size=8, font_weight="bold", edge_color="gray"
+    )
+    plt.title("Árbol del Sitio Web", fontsize=14)
+    if gpt_suggestions:
+        plt.figtext(0.5, 0.01, f"GPT Suggestions: {gpt_suggestions}", wrap=True, horizontalalignment='center', fontsize=10)
+
+    # Guardar la gráfica en lugar de mostrarla
+    plt.savefig("site_tree.png")
+    print("El gráfico del árbol del sitio se ha guardado como 'site_tree.png'.")
+    plt.close()
 
 # Función principal
 def main():
-    url = "https://tbo.com.ec"
+    url = "https://plan.org.ec"
     print("Scraping de la página principal...")
     scraped_data = scrape_with_cloudscraper(url)
-
     if "error" in scraped_data:
         print(scraped_data["error"])
         return
-
-    recommendations = analyze_content(scraped_data)
-    print("\nRecomendaciones SEO:")
-    for rec in recommendations:
-        print(f"- {rec}")
 
     print("\nAnálisis de imágenes:")
     soup = scraped_data["html"]
@@ -167,10 +249,24 @@ def main():
 
     print("\nÁrbol del sitio (texto):")
     for page, links in site_tree.items():
-        print(f"{page}:\n  {', '.join(links[:5])}...\n")
+        if isinstance(links, list):
+            print(f"{page}:\n  {', '.join(links[:5])}...\n")  # Muestra los primeros 5 enlaces
+        else:
+            print(f"{page}: {links}\n")  # Maneja el caso en el que links es un diccionario (error)
 
-    print("\nMostrando el árbol del sitio como gráfico...")
-    plot_site_tree(site_tree, url)
+
+    print("\nEnviando datos a GPT para análisis...")
+    gpt_recommendations = send_to_gpt(scraped_data, image_analysis, site_tree)
+    print("\nRecomendaciones de GPT:")
+    print(gpt_recommendations)
+
+    recommendations = analyze_content(scraped_data)
+    print("\nRecomendaciones SEO:")
+    for rec in recommendations:
+        print(f"- {rec}")
+
+    print("\nMostrando el gráfico del árbol del sitio...")
+    plot_site_tree(site_tree, url, gpt_recommendations)
 
 
 if __name__ == "__main__":
