@@ -227,7 +227,7 @@ def send_to_gpt(site_tree, page_info, image_analysis):
 
 # 9. Función Principal
 def main():
-    url = "https://plan.org.ec/"
+    url = "https://gmsseguridad.com"
     print("Extrayendo el árbol del sitio...")
     site_tree = extract_site_tree(url)
 
@@ -242,8 +242,10 @@ def main():
 
     print("Árbol del sitio guardado como 'site_tree.json'")
 
-    print("\nExtrayendo información de las páginas...")
-    page_info = {page: extract_page_info(page) for page in site_tree}
+   # Limitar la extracción de etiquetas HTML a las primeras 10 páginas del árbol del sitio
+    print("\nExtrayendo información de las primeras 10 páginas del árbol del sitio...")
+    pages_to_process = list(site_tree.keys())[:10]  # Tomar las primeras 10 URLs
+    page_info = {page: extract_page_info(page) for page in pages_to_process}
 
     print("\nVerificando URLs y generando tabla...")
     url_status_table = verify_urls_with_table(site_tree)
