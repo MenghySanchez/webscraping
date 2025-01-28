@@ -314,6 +314,15 @@ def main():
     print("\nEtiquetas HTML:")
     print(html_df)
 
+    print("\nVerificando herramientas de seguimiento (Facebook Pixel, Hotjar, etc.)...")
+    tracking_tools_table = check_tracking_tools_with_table(site_tree)
+    print("\nResultados de Herramientas de Seguimiento:")
+    print(tracking_tools_table)
+
+    # Guardar resultados en un archivo CSV
+    tracking_tools_table.to_csv("tracking_tools.csv", index=False)
+    print("Resultados guardados en 'tracking_tools.csv'.")
+
     print("\nAnalizando imágenes...")
     image_analysis = {page: analyze_images(page) for page in site_tree}
 
