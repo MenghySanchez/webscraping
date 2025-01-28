@@ -226,33 +226,59 @@ def send_to_gpt(site_tree, page_info, image_analysis):
         return f"Error al enviar datos a GPT: {e}"
 
 # 9. Funcion para seguir herramientas de seguimiento     
-def detect_tracking_tools(url):
+
+def check_tracking_tools_with_table(site_tree):
     """
-    Detecta píxeles de Facebook, Hotjar u otras herramientas de seguimiento en el sitio web.
+    Verifica si las páginas contienen herramientas de seguimiento como Facebook Pixel, Google Analytics, Hotjar, etc.
+    Devuelve los resultados en formato tabular.
     """
-    tracking_tools = {
-        "Facebook Pixel": ["https://connect.facebook.net", "fbq("],
-        "Hotjar": ["https://static.hotjar.com", "_hjSettings", "hj("],
-        # Puedes agregar más herramientas aquí
-        "Google Analytics": ["gtag('config'", "www.googletagmanager.com"],
-        "LinkedIn Insights": ["snap.licdn.com"],
-    }
+    def check_page_for_tools(url):
+        """
+        Verifica herramientas de seguimiento en una sola página.
+        """
+        try:
+            scraper = cloudscraper.create_scraper()
+            response = scraper.get(url, timeout=10)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, "html.parser")
+            scripts = soup.find_all("script")
 
-    try:
-        response = requests.get(url, headers=HEADERS, timeout=10)
-        response.raise_for_status()
-        content = response.text
+            # Patrones de herramientas de seguimiento
+            tools = {
+                "Facebook Pixel": ["https://connect.facebook.net", "fbq("],
+                "Google Analytics": ["www.google-analytics.com", "gtag("],
+                "Hotjar": ["https://static.hotjar.com", "_hjSettings"],
+                "Google Tag Manager": ["https://www.googletagmanager.com", "GTM-"],
+                "LinkedIn Insights": ["https://snap.licdn.com", "LinkedIn"],
+            }
 
-        detected_tools = []
-        for tool_name, patterns in tracking_tools.items():
-            for pattern in patterns:
-                if pattern in content:
-                    detected_tools.append(tool_name)
-                    break  # Evitar múltiples detecciones del mismo
+            results = {tool: False for tool in tools}
 
-        return detected_tools if detected_tools else ["No se detectaron herramientas de seguimiento."]
-    except Exception as e:
-        return [f"Error al analizar {url}: {str(e)}"]    
+            # Buscar patrones en los scripts
+            for script in scripts:
+                if script.string:  # Si el script tiene contenido
+                    for tool, patterns in tools.items():
+                        if any(pattern in script.string for pattern in patterns):
+                            results[tool] = True
+
+                if script.get("src"):  # Verificar URLs en el atributo src
+                    for tool, patterns in tools.items():
+                        if any(pattern in script.get("src") for pattern in patterns):
+                            results[tool] = True
+
+            return {"URL": url, **results}
+
+        except Exception as e:
+            return {"URL": url, "Error": str(e)}
+
+    # Usar ThreadPoolExecutor para verificar páginas en paralelo
+    with ThreadPoolExecutor() as executor:
+        results = list(executor.map(check_page_for_tools, site_tree.keys()))
+
+    # Convertir a DataFrame
+    tracking_tools_df = pd.DataFrame(results)
+    return tracking_tools_df   
+    
 
 # 10. Función Principal
 def main():
@@ -273,7 +299,7 @@ def main():
 
    # Limitar la extracción de etiquetas HTML a las primeras 10 páginas del árbol del sitio
     print("\nExtrayendo información de las primeras 10 páginas del árbol del sitio...")
-    pages_to_process = list(site_tree.keys())[:10]  # Tomar las primeras 10 URLs
+    pages_to_process = list(site_tree.keys())[:20]  # Tomar las primeras 10 URLs
     page_info = {page: extract_page_info(page) for page in pages_to_process}
 
     print("\nVerificando URLs y generando tabla...")
