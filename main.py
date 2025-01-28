@@ -225,7 +225,36 @@ def send_to_gpt(site_tree, page_info, image_analysis):
     except Exception as e:
         return f"Error al enviar datos a GPT: {e}"
 
-# 9. Función Principal
+# 9. Funcion para seguir herramientas de seguimiento     
+def detect_tracking_tools(url):
+    """
+    Detecta píxeles de Facebook, Hotjar u otras herramientas de seguimiento en el sitio web.
+    """
+    tracking_tools = {
+        "Facebook Pixel": ["https://connect.facebook.net", "fbq("],
+        "Hotjar": ["https://static.hotjar.com", "_hjSettings", "hj("],
+        # Puedes agregar más herramientas aquí
+        "Google Analytics": ["gtag('config'", "www.googletagmanager.com"],
+        "LinkedIn Insights": ["snap.licdn.com"],
+    }
+
+    try:
+        response = requests.get(url, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        content = response.text
+
+        detected_tools = []
+        for tool_name, patterns in tracking_tools.items():
+            for pattern in patterns:
+                if pattern in content:
+                    detected_tools.append(tool_name)
+                    break  # Evitar múltiples detecciones del mismo
+
+        return detected_tools if detected_tools else ["No se detectaron herramientas de seguimiento."]
+    except Exception as e:
+        return [f"Error al analizar {url}: {str(e)}"]    
+
+# 10. Función Principal
 def main():
     url = "https://gmsseguridad.com"
     print("Extrayendo el árbol del sitio...")
