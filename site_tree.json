@@ -1,362 +1,362 @@
 {
     "https://gmsseguridad.com": {
         "children": {
-            "https://gmsseguridad.com/contactenos/": {
+            "https://gmsseguridad.com/proveedores/": {
                 "children": {
-                    "https://gmsseguridad.com/contactenos/": {},
                     "https://gmsseguridad.com/quienes-somos/": {
                         "children": {
-                            "https://gmsseguridad.com/contactenos/": {},
-                            "https://gmsseguridad.com#0": {
+                            "https://gmsseguridad.com/proveedores/": {},
+                            "https://gmsseguridad.com/quienes-somos/": {},
+                            "https://gmsseguridad.com/soluciones/": {
                                 "children": {
-                                    "https://gmsseguridad.com/contactenos/": {},
-                                    "https://gmsseguridad.com/trabaje-con-nosotros/": {
+                                    "https://gmsseguridad.com/proveedores/": {},
+                                    "https://gmsseguridad.com/quienes-somos/": {},
+                                    "https://gmsseguridad.com/soluciones/": {},
+                                    "https://gmsseguridad.com/contactenos/": {
                                         "children": {
-                                            "https://gmsseguridad.com/contactenos/": {},
+                                            "https://gmsseguridad.com/proveedores/": {},
                                             "https://gmsseguridad.com/quienes-somos/": {},
-                                            "https://gmsseguridad.com": {},
-                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {
+                                            "https://gmsseguridad.com/soluciones/": {},
+                                            "https://gmsseguridad.com/contactenos/": {},
+                                            "https://gmsseguridad.com/soluciones/consultoria/": {
                                                 "children": {
-                                                    "https://gmsseguridad.com/contactenos/": {},
+                                                    "https://gmsseguridad.com/proveedores/": {},
                                                     "https://gmsseguridad.com/quienes-somos/": {},
-                                                    "https://gmsseguridad.com": {},
-                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                    "https://gmsseguridad.com/soluciones/": {},
+                                                    "https://gmsseguridad.com/contactenos/": {},
+                                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
                                                     "https://gmsseguridad.com/noticias/": {
                                                         "children": {
-                                                            "https://gmsseguridad.com/contactenos/": {},
+                                                            "https://gmsseguridad.com/proveedores/": {},
                                                             "https://gmsseguridad.com/quienes-somos/": {},
-                                                            "https://gmsseguridad.com": {},
-                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                            "https://gmsseguridad.com/soluciones/": {},
+                                                            "https://gmsseguridad.com/contactenos/": {},
+                                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
                                                             "https://gmsseguridad.com/noticias/": {},
-                                                            "https://gmsseguridad.com/soluciones/consultoria/": {
+                                                            "https://gmsseguridad.com": {},
+                                                            "https://gmsseguridad.com/alertas/": {
                                                                 "children": {
-                                                                    "https://gmsseguridad.com/contactenos/": {},
+                                                                    "https://gmsseguridad.com/proveedores/": {},
                                                                     "https://gmsseguridad.com/quienes-somos/": {},
-                                                                    "https://gmsseguridad.com": {},
-                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                    "https://gmsseguridad.com/noticias/": {},
+                                                                    "https://gmsseguridad.com/soluciones/": {},
+                                                                    "https://gmsseguridad.com/contactenos/": {},
                                                                     "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                    "https://gmsseguridad.com/soluciones/soc/": {
+                                                                    "https://gmsseguridad.com/noticias/": {},
+                                                                    "https://gmsseguridad.com": {},
+                                                                    "https://gmsseguridad.com/alertas/": {},
+                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {
                                                                         "children": {
-                                                                            "https://gmsseguridad.com/contactenos/": {},
+                                                                            "https://gmsseguridad.com/proveedores/": {},
                                                                             "https://gmsseguridad.com/quienes-somos/": {},
-                                                                            "https://gmsseguridad.com": {},
-                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                            "https://gmsseguridad.com/noticias/": {},
+                                                                            "https://gmsseguridad.com/soluciones/": {},
+                                                                            "https://gmsseguridad.com/contactenos/": {},
                                                                             "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                            "https://gmsseguridad.com/": {
+                                                                            "https://gmsseguridad.com/noticias/": {},
+                                                                            "https://gmsseguridad.com": {},
+                                                                            "https://gmsseguridad.com/alertas/": {},
+                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                                            "https://gmsseguridad.com/soluciones/soc/": {
                                                                                 "children": {
-                                                                                    "https://gmsseguridad.com/contactenos/": {},
-                                                                                    "https://gmsseguridad.com/trabaje-con-nosotros/": {},
+                                                                                    "https://gmsseguridad.com/proveedores/": {},
                                                                                     "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                    "https://gmsseguridad.com/wp-content/uploads/2024/05/video-intro-gms.mp4": {},
-                                                                                    "https://gmsseguridad.com": {},
-                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                    "https://gmsseguridad.com/noticias/": {},
+                                                                                    "https://gmsseguridad.com/soluciones/": {},
+                                                                                    "https://gmsseguridad.com/contactenos/": {},
                                                                                     "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                    "https://gmsseguridad.com/iso-27001-2013/": {},
+                                                                                    "https://gmsseguridad.com/noticias/": {},
+                                                                                    "https://gmsseguridad.com": {},
+                                                                                    "https://gmsseguridad.com/alertas/": {},
+                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
                                                                                     "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                    "https://gmsseguridad.com/": {},
-                                                                                    "https://gmsseguridad.com/alertas/": {
+                                                                                    "https://gmsseguridad.com/soluciones/normativas/": {
                                                                                         "children": {
-                                                                                            "https://gmsseguridad.com/contactenos/": {},
+                                                                                            "https://gmsseguridad.com/proveedores/": {},
                                                                                             "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                            "https://gmsseguridad.com": {},
-                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                            "https://gmsseguridad.com/noticias/": {},
+                                                                                            "https://gmsseguridad.com/soluciones/": {},
+                                                                                            "https://gmsseguridad.com/contactenos/": {},
                                                                                             "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                            "https://gmsseguridad.com/": {},
+                                                                                            "https://gmsseguridad.com/noticias/": {},
+                                                                                            "https://gmsseguridad.com": {},
                                                                                             "https://gmsseguridad.com/alertas/": {},
+                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
+                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {},
                                                                                             "https://gmsseguridad.com/csirt-quienes-somos/": {
                                                                                                 "children": {
-                                                                                                    "https://gmsseguridad.com/contactenos/": {},
-                                                                                                    "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {
-                                                                                                        "children": {
-                                                                                                            "https://gmsseguridad.com/contactenos/": {},
-                                                                                                            "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                            "https://gmsseguridad.com": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                            "https://gmsseguridad.com/noticias/": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                                            "https://gmsseguridad.com/": {},
-                                                                                                            "https://gmsseguridad.com/alertas/": {},
-                                                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {
-                                                                                                                "children": {
-                                                                                                                    "https://gmsseguridad.com/contactenos/": {},
-                                                                                                                    "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                                    "https://gmsseguridad.com": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                                    "https://gmsseguridad.com/noticias/": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                                                    "https://gmsseguridad.com/": {},
-                                                                                                                    "https://gmsseguridad.com/alertas/": {},
-                                                                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                                                    "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
-                                                                                                                    "https://gmsseguridad.com/proveedores/": {
-                                                                                                                        "children": {
-                                                                                                                            "https://gmsseguridad.com/contactenos/": {},
-                                                                                                                            "https://gmsseguridad.com/calificacion-de-proveedores-colombia/": {
-                                                                                                                                "children": {
-                                                                                                                                    "https://gmsseguridad.com/contactenos/": {},
-                                                                                                                                    "https://gmsseguridad.com/persona-natural-colombia/": {
-                                                                                                                                        "children": {}
-                                                                                                                                    },
-                                                                                                                                    "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                                                    "https://gmsseguridad.com": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                                                    "https://gmsseguridad.com/noticias/": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                                                                    "https://gmsseguridad.com/persona-juridica-colombia/": {
-                                                                                                                                        "children": {}
-                                                                                                                                    },
-                                                                                                                                    "https://gmsseguridad.com/": {},
-                                                                                                                                    "https://gmsseguridad.com/alertas/": {},
-                                                                                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                                                                    "https://gmsseguridad.com/proveedores/": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/": {
-                                                                                                                                        "children": {
-                                                                                                                                            "https://gmsseguridad.com/contactenos/": {},
-                                                                                                                                            "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                                                            "https://gmsseguridad.com": {},
-                                                                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                                                            "https://gmsseguridad.com/noticias/": {},
-                                                                                                                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                                                                            "https://gmsseguridad.com/": {},
-                                                                                                                                            "https://gmsseguridad.com/alertas/": {},
-                                                                                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                                                                            "https://gmsseguridad.com/proveedores/": {},
-                                                                                                                                            "https://gmsseguridad.com/soluciones/": {}
-                                                                                                                                        }
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            },
-                                                                                                                            "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                                            "https://gmsseguridad.com": {},
-                                                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                                            "https://gmsseguridad.com/calificacion-de-proveedores-ecuador-2/": {
-                                                                                                                                "children": {
-                                                                                                                                    "https://gmsseguridad.com/contactenos/": {},
-                                                                                                                                    "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                                                    "https://gmsseguridad.com": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                                                    "https://gmsseguridad.com/persona-juridica/": {
-                                                                                                                                        "children": {}
-                                                                                                                                    },
-                                                                                                                                    "https://gmsseguridad.com/noticias/": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                                                                    "https://gmsseguridad.com/persona-natural/": {
-                                                                                                                                        "children": {}
-                                                                                                                                    },
-                                                                                                                                    "https://gmsseguridad.com/": {},
-                                                                                                                                    "https://gmsseguridad.com/alertas/": {},
-                                                                                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                                                                    "https://gmsseguridad.com/proveedores/": {},
-                                                                                                                                    "https://gmsseguridad.com/soluciones/": {}
-                                                                                                                                }
-                                                                                                                            },
-                                                                                                                            "https://gmsseguridad.com/noticias/": {},
-                                                                                                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                                                            "https://gmsseguridad.com/": {},
-                                                                                                                            "https://gmsseguridad.com/alertas/": {},
-                                                                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                                                            "https://gmsseguridad.com/soluciones/": {}
-                                                                                                                        }
-                                                                                                                    },
-                                                                                                                    "https://gmsseguridad.com/soluciones/": {}
-                                                                                                                }
-                                                                                                            },
-                                                                                                            "https://gmsseguridad.com/formulario-de-solicitud-de-ejercicio-de-derechos-gms/": {
-                                                                                                                "children": {
-                                                                                                                    "https://gmsseguridad.com/contactenos/": {},
-                                                                                                                    "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                                    "https://gmsseguridad.com": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                                    "https://gmsseguridad.com/noticias/": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                                                    "https://gmsseguridad.com/": {},
-                                                                                                                    "https://gmsseguridad.com/alertas/": {},
-                                                                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                                                    "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
-                                                                                                                    "https://gmsseguridad.com/proveedores/": {},
-                                                                                                                    "https://gmsseguridad.com/soluciones/": {}
-                                                                                                                }
-                                                                                                            },
-                                                                                                            "https://gmsseguridad.com/soluciones/": {}
-                                                                                                        }
-                                                                                                    },
+                                                                                                    "https://gmsseguridad.com/proveedores/": {},
                                                                                                     "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                    "https://gmsseguridad.com": {},
-                                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                    "https://gmsseguridad.com/noticias/": {},
+                                                                                                    "https://gmsseguridad.com/soluciones/": {},
+                                                                                                    "https://gmsseguridad.com/contactenos/": {},
+                                                                                                    "https://gmsseguridad.com/wp-content/uploads/2023/11/Constitucion-CSIRT-GMS-V4.pdf": {},
                                                                                                     "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
+                                                                                                    "https://gmsseguridad.com/noticias/": {},
+                                                                                                    "https://gmsseguridad.com": {},
+                                                                                                    "https://gmsseguridad.com/alertas/": {},
                                                                                                     "https://gmsseguridad.com#formulario": {
                                                                                                         "children": {
-                                                                                                            "https://gmsseguridad.com/contactenos/": {},
-                                                                                                            "https://gmsseguridad.com/trabaje-con-nosotros/": {},
-                                                                                                            "https://gmsseguridad.com/quienes-somos/": {},
-                                                                                                            "https://gmsseguridad.com/wp-content/uploads/2024/05/video-intro-gms.mp4": {},
-                                                                                                            "https://gmsseguridad.com": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                                                                                            "https://gmsseguridad.com/noticias/": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                                                                            "https://gmsseguridad.com/iso-27001-2013/": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
-                                                                                                            "https://gmsseguridad.com/": {},
-                                                                                                            "https://gmsseguridad.com/alertas/": {},
-                                                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                                            "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
                                                                                                             "https://gmsseguridad.com/proveedores/": {},
-                                                                                                            "https://gmsseguridad.com/soluciones/": {}
+                                                                                                            "https://gmsseguridad.com/iso-27001-2013/": {},
+                                                                                                            "https://gmsseguridad.com/quienes-somos/": {},
+                                                                                                            "https://gmsseguridad.com/soluciones/": {},
+                                                                                                            "https://gmsseguridad.com/contactenos/": {},
+                                                                                                            "https://gmsseguridad.com/wp-content/uploads/2024/05/video-intro-gms.mp4": {},
+                                                                                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
+                                                                                                            "https://gmsseguridad.com/noticias/": {},
+                                                                                                            "https://gmsseguridad.com": {},
+                                                                                                            "https://gmsseguridad.com/trabaje-con-nosotros/": {
+                                                                                                                "children": {
+                                                                                                                    "https://gmsseguridad.com/proveedores/": {},
+                                                                                                                    "https://gmsseguridad.com/quienes-somos/": {},
+                                                                                                                    "https://gmsseguridad.com/soluciones/": {},
+                                                                                                                    "https://gmsseguridad.com/contactenos/": {},
+                                                                                                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
+                                                                                                                    "https://gmsseguridad.com/noticias/": {},
+                                                                                                                    "https://gmsseguridad.com": {},
+                                                                                                                    "https://gmsseguridad.com/wp-content/uploads/2022/10/Final-GSM.mp4": {},
+                                                                                                                    "https://gmsseguridad.com/alertas/": {},
+                                                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
+                                                                                                                    "https://gmsseguridad.com/soluciones/normativas/": {},
+                                                                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                                                                    "https://gmsseguridad.com/": {
+                                                                                                                        "children": {
+                                                                                                                            "https://gmsseguridad.com/proveedores/": {},
+                                                                                                                            "https://gmsseguridad.com/iso-27001-2013/": {},
+                                                                                                                            "https://gmsseguridad.com/quienes-somos/": {},
+                                                                                                                            "https://gmsseguridad.com/soluciones/": {},
+                                                                                                                            "https://gmsseguridad.com/contactenos/": {},
+                                                                                                                            "https://gmsseguridad.com/wp-content/uploads/2024/05/video-intro-gms.mp4": {},
+                                                                                                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
+                                                                                                                            "https://gmsseguridad.com/noticias/": {},
+                                                                                                                            "https://gmsseguridad.com": {},
+                                                                                                                            "https://gmsseguridad.com/trabaje-con-nosotros/": {},
+                                                                                                                            "https://gmsseguridad.com/alertas/": {},
+                                                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
+                                                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {},
+                                                                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                                                                            "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {
+                                                                                                                                "children": {
+                                                                                                                                    "https://gmsseguridad.com/formulario-de-solicitud-de-ejercicio-de-derechos-gms/": {
+                                                                                                                                        "children": {
+                                                                                                                                            "https://gmsseguridad.com/proveedores/": {},
+                                                                                                                                            "https://gmsseguridad.com/quienes-somos/": {},
+                                                                                                                                            "https://gmsseguridad.com/soluciones/": {},
+                                                                                                                                            "https://gmsseguridad.com/contactenos/": {},
+                                                                                                                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
+                                                                                                                                            "https://gmsseguridad.com/noticias/": {},
+                                                                                                                                            "https://gmsseguridad.com": {},
+                                                                                                                                            "https://gmsseguridad.com/alertas/": {},
+                                                                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
+                                                                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {},
+                                                                                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                                                                                            "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
+                                                                                                                                            "https://gmsseguridad.com/": {}
+                                                                                                                                        }
+                                                                                                                                    },
+                                                                                                                                    "https://gmsseguridad.com/quienes-somos/": {},
+                                                                                                                                    "https://gmsseguridad.com/soluciones/": {},
+                                                                                                                                    "https://gmsseguridad.com/contactenos/": {},
+                                                                                                                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
+                                                                                                                                    "https://gmsseguridad.com/noticias/": {},
+                                                                                                                                    "https://gmsseguridad.com": {},
+                                                                                                                                    "https://gmsseguridad.com/alertas/": {},
+                                                                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                                                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
+                                                                                                                                    "https://gmsseguridad.com/soluciones/normativas/": {},
+                                                                                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                                                                                    "https://gmsseguridad.com/": {}
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            "https://gmsseguridad.com/": {}
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            },
+                                                                                                            "https://gmsseguridad.com/alertas/": {},
+                                                                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                                                                            "https://gmsseguridad.com/soluciones/soc/": {},
+                                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {},
+                                                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                                                            "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
+                                                                                                            "https://gmsseguridad.com/": {}
                                                                                                         }
                                                                                                     },
-                                                                                                    "https://gmsseguridad.com/": {},
-                                                                                                    "https://gmsseguridad.com/alertas/": {},
-                                                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
                                                                                                     "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                                    "https://gmsseguridad.com/wp-content/uploads/2023/11/Constitucion-CSIRT-GMS-V4.pdf": {},
-                                                                                                    "https://gmsseguridad.com/proveedores/": {},
-                                                                                                    "https://gmsseguridad.com/soluciones/": {}
+                                                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                                                    "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
+                                                                                                    "https://gmsseguridad.com/": {}
                                                                                                 }
                                                                                             },
-                                                                                            "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                                            "https://gmsseguridad.com/proveedores/": {},
-                                                                                            "https://gmsseguridad.com/soluciones/": {}
+                                                                                            "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
+                                                                                            "https://gmsseguridad.com/": {}
                                                                                         }
                                                                                     },
                                                                                     "https://gmsseguridad.com/csirt-quienes-somos/": {},
-                                                                                    "https://gmsseguridad.com/soluciones/normativas/": {},
                                                                                     "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
-                                                                                    "https://gmsseguridad.com/proveedores/": {},
-                                                                                    "https://gmsseguridad.com/soluciones/": {}
+                                                                                    "https://gmsseguridad.com/": {}
                                                                                 }
                                                                             },
-                                                                            "https://gmsseguridad.com/alertas/": {},
-                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
                                                                             "https://gmsseguridad.com/soluciones/normativas/": {},
+                                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
                                                                             "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
-                                                                            "https://gmsseguridad.com/proveedores/": {},
-                                                                            "https://gmsseguridad.com/soluciones/": {}
+                                                                            "https://gmsseguridad.com/": {}
                                                                         }
                                                                     },
-                                                                    "https://gmsseguridad.com/": {},
-                                                                    "https://gmsseguridad.com/alertas/": {},
-                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                    "https://gmsseguridad.com/soluciones/soc/": {},
                                                                     "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                                    "https://gmsseguridad.com/proveedores/": {},
-                                                                    "https://gmsseguridad.com/soluciones/": {}
+                                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                                    "https://gmsseguridad.com/": {}
                                                                 }
                                                             },
+                                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
                                                             "https://gmsseguridad.com/soluciones/soc/": {},
-                                                            "https://gmsseguridad.com/": {},
-                                                            "https://gmsseguridad.com/alertas/": {},
-                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
                                                             "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                            "https://gmsseguridad.com/proveedores/": {},
-                                                            "https://gmsseguridad.com/soluciones/": {}
+                                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                            "https://gmsseguridad.com/": {}
                                                         }
                                                     },
-                                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                                    "https://gmsseguridad.com/soluciones/soc/": {},
-                                                    "https://gmsseguridad.com/": {},
+                                                    "https://gmsseguridad.com": {},
                                                     "https://gmsseguridad.com/alertas/": {},
-                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                                    "https://gmsseguridad.com/soluciones/soc/": {},
                                                     "https://gmsseguridad.com/soluciones/normativas/": {},
-                                                    "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
-                                                    "https://gmsseguridad.com/proveedores/": {},
-                                                    "https://gmsseguridad.com/soluciones/": {}
+                                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                                    "https://gmsseguridad.com/": {}
                                                 }
                                             },
-                                            "https://gmsseguridad.com/wp-content/uploads/2022/10/Final-GSM.mp4": {},
                                             "https://gmsseguridad.com/noticias/": {},
-                                            "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                            "https://gmsseguridad.com/soluciones/soc/": {},
-                                            "https://gmsseguridad.com/": {},
+                                            "https://gmsseguridad.com": {},
                                             "https://gmsseguridad.com/alertas/": {},
-                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                            "https://gmsseguridad.com/soluciones/soc/": {},
                                             "https://gmsseguridad.com/soluciones/normativas/": {},
-                                            "https://gmsseguridad.com/proveedores/": {},
-                                            "https://gmsseguridad.com/soluciones/": {}
+                                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                            "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
+                                            "https://gmsseguridad.com/": {}
                                         }
                                     },
-                                    "https://gmsseguridad.com/quienes-somos/": {},
-                                    "https://gmsseguridad.com/wp-content/uploads/2024/05/video-intro-gms.mp4": {},
-                                    "https://gmsseguridad.com": {},
-                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                                    "https://gmsseguridad.com/noticias/": {},
                                     "https://gmsseguridad.com/soluciones/consultoria/": {},
-                                    "https://gmsseguridad.com/iso-27001-2013/": {},
-                                    "https://gmsseguridad.com/soluciones/soc/": {},
-                                    "https://gmsseguridad.com/": {},
+                                    "https://gmsseguridad.com/noticias/": {},
+                                    "https://gmsseguridad.com": {},
                                     "https://gmsseguridad.com/alertas/": {},
-                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                    "https://gmsseguridad.com/soluciones/soc/": {},
                                     "https://gmsseguridad.com/soluciones/normativas/": {},
-                                    "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
-                                    "https://gmsseguridad.com/proveedores/": {},
-                                    "https://gmsseguridad.com/soluciones/": {}
+                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                    "https://gmsseguridad.com/": {}
                                 }
                             },
-                            "https://gmsseguridad.com/quienes-somos/": {},
-                            "https://gmsseguridad.com": {},
-                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                            "https://gmsseguridad.com/noticias/": {},
+                            "https://gmsseguridad.com/contactenos/": {},
                             "https://gmsseguridad.com/soluciones/consultoria/": {},
-                            "https://gmsseguridad.com/soluciones/soc/": {},
-                            "https://gmsseguridad.com/": {},
+                            "https://gmsseguridad.com/noticias/": {},
+                            "https://gmsseguridad.com": {},
                             "https://gmsseguridad.com/alertas/": {},
-                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                            "https://gmsseguridad.com/soluciones/soc/": {},
                             "https://gmsseguridad.com/soluciones/normativas/": {},
-                            "https://gmsseguridad.com/proveedores/": {},
-                            "https://gmsseguridad.com/soluciones/": {}
+                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                            "https://gmsseguridad.com#0": {
+                                "children": {
+                                    "https://gmsseguridad.com/proveedores/": {},
+                                    "https://gmsseguridad.com/iso-27001-2013/": {},
+                                    "https://gmsseguridad.com/quienes-somos/": {},
+                                    "https://gmsseguridad.com/soluciones/": {},
+                                    "https://gmsseguridad.com/contactenos/": {},
+                                    "https://gmsseguridad.com/wp-content/uploads/2024/05/video-intro-gms.mp4": {},
+                                    "https://gmsseguridad.com/soluciones/consultoria/": {},
+                                    "https://gmsseguridad.com/noticias/": {},
+                                    "https://gmsseguridad.com": {},
+                                    "https://gmsseguridad.com/trabaje-con-nosotros/": {},
+                                    "https://gmsseguridad.com/alertas/": {},
+                                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                                    "https://gmsseguridad.com/soluciones/soc/": {},
+                                    "https://gmsseguridad.com/soluciones/normativas/": {},
+                                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                                    "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
+                                    "https://gmsseguridad.com/": {}
+                                }
+                            },
+                            "https://gmsseguridad.com/": {}
                         }
                     },
-                    "https://gmsseguridad.com": {},
-                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-                    "https://gmsseguridad.com/noticias/": {},
+                    "https://gmsseguridad.com/soluciones/": {},
+                    "https://gmsseguridad.com/contactenos/": {},
                     "https://gmsseguridad.com/soluciones/consultoria/": {},
-                    "https://gmsseguridad.com/soluciones/soc/": {},
-                    "https://gmsseguridad.com/": {},
+                    "https://gmsseguridad.com/noticias/": {},
+                    "https://gmsseguridad.com": {},
                     "https://gmsseguridad.com/alertas/": {},
-                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                    "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                    "https://gmsseguridad.com/soluciones/soc/": {},
+                    "https://gmsseguridad.com/calificacion-de-proveedores-colombia/": {
+                        "children": {
+                            "https://gmsseguridad.com/proveedores/": {},
+                            "https://gmsseguridad.com/quienes-somos/": {},
+                            "https://gmsseguridad.com/soluciones/": {},
+                            "https://gmsseguridad.com/contactenos/": {},
+                            "https://gmsseguridad.com/soluciones/consultoria/": {},
+                            "https://gmsseguridad.com/noticias/": {},
+                            "https://gmsseguridad.com": {},
+                            "https://gmsseguridad.com/alertas/": {},
+                            "https://gmsseguridad.com/persona-natural-colombia/": {
+                                "children": {}
+                            },
+                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                            "https://gmsseguridad.com/soluciones/soc/": {},
+                            "https://gmsseguridad.com/persona-juridica-colombia/": {
+                                "children": {}
+                            },
+                            "https://gmsseguridad.com/soluciones/normativas/": {},
+                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                            "https://gmsseguridad.com/": {}
+                        }
+                    },
                     "https://gmsseguridad.com/soluciones/normativas/": {},
-                    "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
-                    "https://gmsseguridad.com/proveedores/": {},
-                    "https://gmsseguridad.com/soluciones/": {}
+                    "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                    "https://gmsseguridad.com/calificacion-de-proveedores-ecuador-2/": {
+                        "children": {
+                            "https://gmsseguridad.com/proveedores/": {},
+                            "https://gmsseguridad.com/quienes-somos/": {},
+                            "https://gmsseguridad.com/soluciones/": {},
+                            "https://gmsseguridad.com/contactenos/": {},
+                            "https://gmsseguridad.com/soluciones/consultoria/": {},
+                            "https://gmsseguridad.com/noticias/": {},
+                            "https://gmsseguridad.com": {},
+                            "https://gmsseguridad.com/persona-juridica/": {
+                                "children": {}
+                            },
+                            "https://gmsseguridad.com/persona-natural/": {
+                                "children": {}
+                            },
+                            "https://gmsseguridad.com/alertas/": {},
+                            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+                            "https://gmsseguridad.com/soluciones/soc/": {},
+                            "https://gmsseguridad.com/soluciones/normativas/": {},
+                            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+                            "https://gmsseguridad.com/": {}
+                        }
+                    },
+                    "https://gmsseguridad.com/": {}
                 }
             },
-            "https://gmsseguridad.com/trabaje-con-nosotros/": {},
-            "https://gmsseguridad.com/quienes-somos/": {},
-            "https://gmsseguridad.com/wp-content/uploads/2024/05/video-intro-gms.mp4": {},
-            "https://gmsseguridad.com": {},
-            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
-            "https://gmsseguridad.com/noticias/": {},
-            "https://gmsseguridad.com/soluciones/consultoria/": {},
             "https://gmsseguridad.com/iso-27001-2013/": {},
-            "https://gmsseguridad.com/soluciones/soc/": {},
-            "https://gmsseguridad.com/": {},
+            "https://gmsseguridad.com/quienes-somos/": {},
+            "https://gmsseguridad.com/soluciones/": {},
+            "https://gmsseguridad.com/contactenos/": {},
+            "https://gmsseguridad.com/wp-content/uploads/2024/05/video-intro-gms.mp4": {},
+            "https://gmsseguridad.com/soluciones/consultoria/": {},
+            "https://gmsseguridad.com/noticias/": {},
+            "https://gmsseguridad.com": {},
+            "https://gmsseguridad.com/trabaje-con-nosotros/": {},
             "https://gmsseguridad.com/alertas/": {},
-            "https://gmsseguridad.com/csirt-quienes-somos/": {},
+            "https://gmsseguridad.com/soluciones/gestion-de-vulnerabilidades/": {},
+            "https://gmsseguridad.com/soluciones/soc/": {},
             "https://gmsseguridad.com/soluciones/normativas/": {},
+            "https://gmsseguridad.com/csirt-quienes-somos/": {},
             "https://gmsseguridad.com/politica-de-proteccion-de-datos-personales-y-privacidad/": {},
-            "https://gmsseguridad.com/proveedores/": {},
-            "https://gmsseguridad.com/soluciones/": {}
+            "https://gmsseguridad.com/": {}
         }
     }
 }

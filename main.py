@@ -18,6 +18,9 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 }
 
+# Configurar timeout global para solicitudes
+TIMEOUT = 10
+
 # 1. Extraer el Árbol del Sitio Web
 def extract_site_tree(base_url, max_depth=2):
     """
@@ -204,81 +207,83 @@ def analyze_images(url):
 # 8. Enviar Datos a GPT
 def send_to_gpt(site_tree, page_info, image_analysis):
     """
-    Envía los datos recolectados a GPT para obtener recomendaciones.
+    Envía los datos recolectados a GPT para obtener:
+    - Sugerencias de descripciones para las páginas.
+    - Palabras clave recomendadas según su contenido.
+    - Recomendaciones para estructurar mejor el árbol del sitio.
     """
     def summarize_data(data, limit=1000):
         return str(data)[:limit] + "..." if len(str(data)) > limit else str(data)
 
+    # Preparar datos resumidos para el prompt
+    summarized_tree = summarize_data(site_tree, limit=3000)
+    summarized_pages = summarize_data(
+        {page: {"h1": info.get("h1", []), "p": info.get("p", [])} for page, info in page_info.items()},
+        limit=3000
+    )
+    summarized_images = summarize_data(image_analysis, limit=3000)
+
+    # Prompt para GPT
     prompt = f"""
-    Analiza la estructura del sitio web y proporciona recomendaciones de SEO:
-    Árbol del sitio: {summarize_data(site_tree)}
-    Información de las páginas: {summarize_data(page_info)}
-    Análisis de imágenes: {summarize_data(image_analysis)}
+    Eres un experto en SEO y optimización web. Con base en los siguientes datos extraídos de un sitio web:
+    
+    1. Árbol del sitio:
+    {summarized_tree}
+
+    2. Información de las páginas:
+    {summarized_pages}
+
+    3. Análisis de imágenes:
+    {summarized_images}
+
+    Necesito que realices lo siguiente:
+    - Sugerir descripciones meta optimizadas para las páginas según su contenido.
+    - Proponer palabras clave relevantes basadas en los títulos (h1) y el texto de las páginas.
+    - Proporcionar recomendaciones para mejorar la estructura del árbol del sitio web.
+    - Identificar posibles problemas SEO y sugerir soluciones.
+
+    Proporciona las respuestas de manera clara y organizada.
     """
     try:
+        # Enviar el prompt a GPT
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=1000,
+            max_tokens=2000,
+            temperature=0.7,
         )
         return response["choices"][0]["message"]["content"]
     except Exception as e:
         return f"Error al enviar datos a GPT: {e}"
 
-# 9. Funcion para seguir herramientas de seguimiento     
-
-def check_tracking_tools_with_table(site_tree):
+# 9. Funcion para     
+def detect_tracking_tools(url):
     """
-    Verifica si las páginas contienen herramientas de seguimiento como Facebook Pixel, Google Analytics, Hotjar, etc.
-    Devuelve los resultados en formato tabular.
+    Detecta píxeles de Facebook, Hotjar u otras herramientas de seguimiento en el sitio web.
     """
-    def check_page_for_tools(url):
-        """
-        Verifica herramientas de seguimiento en una sola página.
-        """
-        try:
-            scraper = cloudscraper.create_scraper()
-            response = scraper.get(url, timeout=10)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, "html.parser")
-            scripts = soup.find_all("script")
+    tracking_tools = {
+        "Facebook Pixel": ["https://connect.facebook.net", "fbq("],
+        "Hotjar": ["https://static.hotjar.com", "_hjSettings", "hj("],
+        # Puedes agregar más herramientas aquí
+        "Google Analytics": ["gtag('config'", "www.googletagmanager.com"],
+        "LinkedIn Insights": ["snap.licdn.com"],
+    }
 
-            # Patrones de herramientas de seguimiento
-            tools = {
-                "Facebook Pixel": ["https://connect.facebook.net", "fbq("],
-                "Google Analytics": ["www.google-analytics.com", "gtag("],
-                "Hotjar": ["https://static.hotjar.com", "_hjSettings"],
-                "Google Tag Manager": ["https://www.googletagmanager.com", "GTM-"],
-                "LinkedIn Insights": ["https://snap.licdn.com", "LinkedIn"],
-            }
+    try:
+        response = requests.get(url, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        content = response.text
 
-            results = {tool: False for tool in tools}
+        detected_tools = []
+        for tool_name, patterns in tracking_tools.items():
+            for pattern in patterns:
+                if pattern in content:
+                    detected_tools.append(tool_name)
+                    break  # Evitar múltiples detecciones del mismo
 
-            # Buscar patrones en los scripts
-            for script in scripts:
-                if script.string:  # Si el script tiene contenido
-                    for tool, patterns in tools.items():
-                        if any(pattern in script.string for pattern in patterns):
-                            results[tool] = True
-
-                if script.get("src"):  # Verificar URLs en el atributo src
-                    for tool, patterns in tools.items():
-                        if any(pattern in script.get("src") for pattern in patterns):
-                            results[tool] = True
-
-            return {"URL": url, **results}
-
-        except Exception as e:
-            return {"URL": url, "Error": str(e)}
-
-    # Usar ThreadPoolExecutor para verificar páginas en paralelo
-    with ThreadPoolExecutor() as executor:
-        results = list(executor.map(check_page_for_tools, site_tree.keys()))
-
-    # Convertir a DataFrame
-    tracking_tools_df = pd.DataFrame(results)
-    return tracking_tools_df   
-    
+        return detected_tools if detected_tools else ["No se detectaron herramientas de seguimiento."]
+    except Exception as e:
+        return [f"Error al analizar {url}: {str(e)}"]    
 
 # 10. Función Principal
 def main():
@@ -299,7 +304,7 @@ def main():
 
    # Limitar la extracción de etiquetas HTML a las primeras 10 páginas del árbol del sitio
     print("\nExtrayendo información de las primeras 10 páginas del árbol del sitio...")
-    pages_to_process = list(site_tree.keys())[:20]  # Tomar las primeras 10 URLs
+    pages_to_process = list(site_tree.keys())[:10]  # Tomar las primeras 10 URLs
     page_info = {page: extract_page_info(page) for page in pages_to_process}
 
     print("\nVerificando URLs y generando tabla...")
@@ -313,15 +318,6 @@ def main():
     print(meta_df)
     print("\nEtiquetas HTML:")
     print(html_df)
-
-    print("\nVerificando herramientas de seguimiento (Facebook Pixel, Hotjar, etc.)...")
-    tracking_tools_table = check_tracking_tools_with_table(site_tree)
-    print("\nResultados de Herramientas de Seguimiento:")
-    print(tracking_tools_table)
-
-    # Guardar resultados en un archivo CSV
-    tracking_tools_table.to_csv("tracking_tools.csv", index=False)
-    print("Resultados guardados en 'tracking_tools.csv'.")
 
     print("\nAnalizando imágenes...")
     image_analysis = {page: analyze_images(page) for page in site_tree}
